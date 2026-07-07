@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SkateRoutes NL</title>
+    <script type="module" crossorigin src="/skateroutes-web/assets/index-B4WPn_8t.js"></script>
+    <link rel="stylesheet" crossorigin href="/skateroutes-web/assets/index-CVpnME8s.css">
+  </head>
+  <body>
+    <!-- Login view (shown when signed out) -->
+    <div id="login-view" class="hidden">
+      <form id="login-form">
+        <h1>SkateRoutes NL</h1>
+        <p class="subtitle">Log in om je ritten en beoordelingen te bekijken.</p>
+        <label for="email">E-mailadres</label>
+        <input id="email" type="email" autocomplete="email" required />
+        <label for="password">Wachtwoord</label>
+        <input id="password" type="password" autocomplete="current-password" required />
+        <button id="login-button" type="submit">Inloggen</button>
+        <p id="login-error" class="error hidden"></p>
+        <p class="hint">Nog geen account? Registreren doe je in de Android-app.</p>
+      </form>
+    </div>
+
+    <!-- Main view (shown when signed in) -->
+    <div id="app-view" class="hidden">
+      <aside id="sidebar">
+        <header>
+          <h1>Mijn ritten</h1>
+          <div class="account">
+            <span id="user-email"></span>
+            <button id="logout-button" type="button">Uitloggen</button>
+          </div>
+          <button id="export-all-button" class="export-button" type="button">
+            Alles exporteren (JSON)
+          </button>
+        </header>
+        <p id="rides-status" class="hint">Ritten laden…</p>
+        <ul id="ride-list"></ul>
+      </aside>
+      <div id="map-wrap">
+        <div id="map"></div>
+        <!-- Map view mode: asphalt quality overlays (default) vs speed along the track -->
+        <div id="map-mode" role="group" aria-label="Kaartweergave">
+          <button id="mode-quality" type="button" class="active">Kwaliteit</button>
+          <button id="mode-speed" type="button">Snelheid</button>
+        </div>
+        <!-- Speed ramp legend (speed mode only); bar + labels filled by src/map.ts -->
+        <div id="speed-legend" class="hidden">
+          <span class="legend-title">Snelheid (km/u)</span>
+          <div class="legend-bar"></div>
+          <div class="legend-labels">
+            <span>0</span><span class="legend-mid"></span><span class="legend-max"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Per-ride statistics dialog (filled by src/stats.ts). Direct body child: the .hidden
+         toggle on #app-view at logout must not clobber an open dialog. -->
+    <dialog id="stats-dialog" aria-labelledby="stats-title">
+      <div class="stats-content">
+        <header class="stats-header">
+          <h2 id="stats-title">Ritstatistieken</h2>
+          <button id="stats-close" type="button" aria-label="Sluiten" autofocus>✕</button>
+        </header>
+        <p id="stats-date" class="hint"></p>
+        <dl id="stats-list"></dl>
+      </div>
+    </dialog>
+
+  </body>
+</html>
